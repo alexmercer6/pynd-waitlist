@@ -82,7 +82,7 @@ export default function Home() {
             <div className="bg-black text-white p-8 rounded-lg">
               <h3 className="text-3xl font-bold mb-4">THE PROBLEM</h3>
               <p className="text-xl">
-                Ever missed your favorite coffee van or wished you knew where that amazing taco truck parked today?
+                Ever missed your favorite coffee van or wished you knew where that amazing food truck parked today?
                 Chasing down mobile vendors or relying on outdated social media posts is hit-or-miss.
               </p>
             </div>
