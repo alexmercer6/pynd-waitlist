@@ -97,7 +97,7 @@ export default function WaitlistForm() {
             <form action={customerAction} className="space-y-6">
               <div className="space-y-2">
                 <Label htmlFor="email" className="text-lg">
-                  Email Address
+                  Email Address *
                 </Label>
                 <Input
                   id="email"
@@ -109,9 +109,53 @@ export default function WaitlistForm() {
                 />
               </div>
 
+
+              {/* New fields for state, suburb, and postcode */}
+              <p className="text-zinc-400 mt-8">Optional...{"\n"}but adding your location helps us gauge demand in your area!</p>
+              <div className="grid grid-cols-2 gap-4">
+                <div className="space-y-2">
+                  <Label htmlFor="suburb" className="text-lg">
+                    Suburb
+                  </Label>
+                  <Input
+                    id="suburb"
+                    name="suburb"
+                    type="text"
+                    placeholder="Your suburb"
+                    className="bg-zinc-800 border-zinc-700 h-12 text-lg"
+                  />
+                </div>
+                <div className="space-y-2">
+                  <Label htmlFor="state" className="text-lg">
+                    State
+                  </Label>
+                  <Input
+                    id="state"
+                    name="state"
+                    type="text"
+                    placeholder="Your state"
+                    className="bg-zinc-800 border-zinc-700 h-12 text-lg"
+                  />
+                </div>
+              </div>
+
+              <div className="space-y-2">
+                <Label htmlFor="postcode" className="text-lg">
+                  Postcode
+                </Label>
+                <Input
+                  id="postcode"
+                  name="postcode"
+                  type="text"
+                  placeholder="Your postcode"
+                  className="bg-zinc-800 border-zinc-700 h-12 text-lg"
+                />
+              </div>
+
               {customerState.message && !customerState.success && (
                 <div className="text-red-500 text-sm">{customerState.message}</div>
               )}
+
 
               <Button type="submit" className="w-full bg-rose-500 hover:bg-rose-600 h-12 text-lg font-bold">
                 Submit
@@ -123,9 +167,22 @@ export default function WaitlistForm() {
         <TabsContent value="vendor">
           <div className="bg-zinc-900 p-8 rounded-lg">
             <form action={vendorAction} className="space-y-6">
+            <div className="space-y-2">
+                <Label htmlFor="email" className="text-lg">
+                  Email Address *
+                </Label>
+                <Input
+                  id="email"
+                  name="email"
+                  type="email"
+                  placeholder="business@email.com"
+                  required
+                  className="bg-zinc-800 border-zinc-700 h-12 text-lg"
+                />
+              </div>
               <div className="space-y-2">
                 <Label htmlFor="businessName" className="text-lg">
-                  Business Name
+                  Business Name *
                 </Label>
                 <Input
                   id="businessName"
@@ -145,7 +202,6 @@ export default function WaitlistForm() {
                   name="businessType"
                   type="text"
                   placeholder="Food Truck, Coffee Van, etc."
-                  required
                   className="bg-zinc-800 border-zinc-700 h-12 text-lg"
                 />
               </div>
@@ -154,7 +210,7 @@ export default function WaitlistForm() {
               <div className="grid grid-cols-2 gap-4">
                 <div className="space-y-2">
                   <Label htmlFor="suburb" className="text-lg">
-                    Suburb
+                    Suburb *
                   </Label>
                   <Input
                     id="suburb"
@@ -167,7 +223,7 @@ export default function WaitlistForm() {
                 </div>
                 <div className="space-y-2">
                   <Label htmlFor="state" className="text-lg">
-                    State
+                    State *
                   </Label>
                   <Input
                     id="state"
@@ -182,7 +238,7 @@ export default function WaitlistForm() {
 
               <div className="space-y-2">
                 <Label htmlFor="postcode" className="text-lg">
-                  Postcode
+                  Postcode *
                 </Label>
                 <Input
                   id="postcode"
@@ -194,19 +250,7 @@ export default function WaitlistForm() {
                 />
               </div>
 
-              <div className="space-y-2">
-                <Label htmlFor="email" className="text-lg">
-                  Email Address
-                </Label>
-                <Input
-                  id="email"
-                  name="email"
-                  type="email"
-                  placeholder="business@email.com"
-                  required
-                  className="bg-zinc-800 border-zinc-700 h-12 text-lg"
-                />
-              </div>
+
 
               {vendorState.message && !vendorState.success && (
                 <div className="text-red-500 text-sm">{vendorState.message}</div>

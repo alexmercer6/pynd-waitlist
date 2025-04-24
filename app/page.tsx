@@ -101,7 +101,7 @@ export default function Home() {
       <section className="py-20 bg-black">
         <div className="container mx-auto px-4">
           <h2 className="text-4xl md:text-6xl font-black mb-12 text-center">HOW PYND SATISFIES YOUR CRAVINGS</h2>
-          <div className="grid md:grid-cols-3 gap-8 max-w-6xl mx-auto">
+          <div className="grid md:grid-cols-2 gap-8 max-w-6xl mx-auto">
             <div className="bg-zinc-900 p-8 rounded-lg text-center">
               <div className="bg-rose-500 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-6">
                 <svg
@@ -169,6 +169,30 @@ export default function Home() {
                 again.
               </p>
             </div>
+            <div className="bg-zinc-900 p-8 rounded-lg text-center">
+            <div className="bg-lime-500 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-6">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                className="text-white"
+              >
+                <path d="M18 8a6 6 0 0 0-12 0c0 7-3 9-3 9h18s-3-2-3-9" />
+                <path d="M13.73 21a2 2 0 0 1-3.46 0" />
+              </svg>
+            </div>
+            <h3 className="text-2xl font-bold mb-4">GET NOTIFIED</h3>
+            <p>
+              Get notified when your favorite vans are nearby or when new vendors join the platform. Never miss a delicious moment.
+            </p>
+          </div>
+
           </div>
         </div>
       </section>
@@ -204,7 +228,7 @@ export default function Home() {
               </div>
               <div>
                 <h3 className="text-2xl font-bold mb-2">SHAPE THE FUTURE</h3>
-                <p className="text-lg">Help us build the ultimate mobile foodie community with your feedback.</p>
+                <p className="text-lg">Help us build the ultimate mobile coffee and food community with your feedback.</p>
               </div>
             </div>
             <div className="flex items-start space-x-4">

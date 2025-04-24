@@ -7,12 +7,15 @@ import { supabase } from "@/lib/supabase"
 export async function submitCustomerEmail(prevState: any, formData: FormData) {
   try {
     const email = formData.get("email") as string
+    const suburb = formData.get("suburb") as string
+    const state = formData.get("state") as string
+    const postcode = formData.get("postcode") as string
 
     if (!email) {
       return { success: false, message: "Email is required" }
     }
 
-    const { error } = await supabase.from("waitlist_customers").insert([{ email }])
+    const { error } = await supabase.from("waitlist_customers").insert([{ email, postcode, suburb, state }])
 
     if (error) {
       console.error("Error submitting customer email:", error)
