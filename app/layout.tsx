@@ -10,7 +10,6 @@ export const metadata: Metadata = {
   title: "Pynd - Discover Local Food Trucks & Coffee Vans",
   description:
     "Join the waitlist for Pynd - the app that connects you with the best local food trucks and coffee vans near you.",
-    generator: 'v0.dev'
 }
 
 export default function RootLayout({
