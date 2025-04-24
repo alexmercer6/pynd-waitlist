@@ -1,1 +1,0 @@
-# pynd-waitlist
