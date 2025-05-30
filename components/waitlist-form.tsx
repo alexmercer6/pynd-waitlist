@@ -1,59 +1,52 @@
-"use client"
+"use client";
 
-import { useState, useEffect } from "react"
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
-import { Button } from "@/components/ui/button"
-import { Input } from "@/components/ui/input"
-import { Label } from "@/components/ui/label"
-import { submitCustomerEmail, submitVendorInfo } from "@/app/actions/waitlist"
-import { useFormState } from "react-dom"
-import { track } from "@vercel/analytics"
+import { useState, useEffect } from "react";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { submitCustomerEmail, submitVendorInfo } from "@/app/actions/waitlist";
+import { useFormState, useFormStatus } from "react-dom";
+import { track } from "@vercel/analytics";
 
 // Initial state for form submissions
 const initialState = {
   success: false,
   message: "",
+  data: null,
+};
+
+// New SubmitButton component
+function SubmitButton({
+  children,
+  className,
+  pendingText = "Processing...",
+  ...props
+}: {
+  children: React.ReactNode;
+  className?: string;
+  pendingText?: string;
+} & React.ComponentPropsWithoutRef<typeof Button>) {
+  const { pending } = useFormStatus();
+  return (
+    <Button type="submit" disabled={pending} className={className} {...props}>
+      {pending ? pendingText : children}
+    </Button>
+  );
 }
 
 export default function WaitlistForm() {
-  const [activeTab, setActiveTab] = useState("customer")
-  const [previousCustomerState, setPreviousCustomerState] = useState({ success: false })
-  const [previousVendorState, setPreviousVendorState] = useState({ success: false })
+  const [activeTab, setActiveTab] = useState("customer");
 
   // Use React's useFormState hook to handle form submissions
-  const [customerState, customerAction] = useFormState(submitCustomerEmail, initialState)
-  const [vendorState, vendorAction] = useFormState(submitVendorInfo, initialState)
-
-  // Track form submissions
-  useEffect(() => {
-    // Track customer form submission
-    if (customerState.success && !previousCustomerState.success) {
-      track("waitlist_signup", {
-        userType: "customer",
-        source: "waitlist_form",
-      })
-    }
-
-    // Track vendor form submission
-    if (vendorState.success && !previousVendorState.success) {
-      track("waitlist_signup", {
-        userType: "vendor",
-        source: "waitlist_form",
-      })
-    }
-
-    // Update previous states
-    setPreviousCustomerState(customerState)
-    setPreviousVendorState(vendorState)
-  }, [customerState, vendorState, previousCustomerState, previousVendorState])
-
-  // Track tab changes
-  useEffect(() => {
-    track("tab_change", {
-      tab: activeTab,
-      source: "waitlist_form",
-    })
-  }, [activeTab])
+  const [customerState, customerAction] = useFormState(
+    submitCustomerEmail,
+    initialState
+  );
+  const [vendorState, vendorAction] = useFormState(
+    submitVendorInfo,
+    initialState
+  );
 
   // Show success message if form was submitted successfully
   if (customerState.success || vendorState.success) {
@@ -75,14 +68,20 @@ export default function WaitlistForm() {
           <polyline points="22 4 12 14.01 9 11.01" />
         </svg>
         <h3 className="text-2xl font-bold mb-2">You're on the list!</h3>
-        <p className="text-lg">{customerState.success ? customerState.message : vendorState.message}</p>
+        <p className="text-lg">
+          {customerState.success ? customerState.message : vendorState.message}
+        </p>
       </div>
-    )
+    );
   }
 
   return (
     <div className="max-w-md mx-auto">
-      <Tabs defaultValue="customer" className="w-full" onValueChange={setActiveTab}>
+      <Tabs
+        defaultValue="customer"
+        className="w-full"
+        onValueChange={setActiveTab}
+      >
         <TabsList className="grid w-full grid-cols-2 mb-8">
           <TabsTrigger value="customer" className="text-lg">
             Food Lovers
@@ -106,12 +105,15 @@ export default function WaitlistForm() {
                   placeholder="your@email.com"
                   required
                   className="bg-zinc-800 border-zinc-700 h-12 text-lg"
+                  defaultValue={customerState.data?.email || ""}
                 />
               </div>
 
-
               {/* New fields for state, suburb, and postcode */}
-              <p className="text-zinc-400 mt-8">Optional...{"\n"}but adding your location helps us gauge demand in your area!</p>
+              <p className="text-zinc-400 mt-8">
+                Optional...{"\n"}but adding your location helps us gauge demand
+                in your area!
+              </p>
               <div className="grid grid-cols-2 gap-4">
                 <div className="space-y-2">
                   <Label htmlFor="suburb" className="text-lg">
@@ -123,6 +125,7 @@ export default function WaitlistForm() {
                     type="text"
                     placeholder="Your suburb"
                     className="bg-zinc-800 border-zinc-700 h-12 text-lg"
+                    defaultValue={customerState.data?.suburb || ""}
                   />
                 </div>
                 <div className="space-y-2">
@@ -135,6 +138,7 @@ export default function WaitlistForm() {
                     type="text"
                     placeholder="Your state"
                     className="bg-zinc-800 border-zinc-700 h-12 text-lg"
+                    defaultValue={customerState.data?.state || ""}
                   />
                 </div>
               </div>
@@ -149,17 +153,19 @@ export default function WaitlistForm() {
                   type="text"
                   placeholder="Your postcode"
                   className="bg-zinc-800 border-zinc-700 h-12 text-lg"
+                  defaultValue={customerState.data?.postcode || ""}
                 />
               </div>
 
               {customerState.message && !customerState.success && (
-                <div className="text-red-500 text-sm">{customerState.message}</div>
+                <div className="text-red-500 text-sm">
+                  {customerState.message}
+                </div>
               )}
 
-
-              <Button type="submit" className="w-full bg-rose-500 hover:bg-rose-600 h-12 text-lg font-bold">
+              <SubmitButton className="w-full bg-rose-500 hover:bg-rose-600 h-12 text-lg font-bold">
                 Submit
-              </Button>
+              </SubmitButton>
             </form>
           </div>
         </TabsContent>
@@ -167,7 +173,7 @@ export default function WaitlistForm() {
         <TabsContent value="vendor">
           <div className="bg-zinc-900 p-8 rounded-lg">
             <form action={vendorAction} className="space-y-6">
-            <div className="space-y-2">
+              <div className="space-y-2">
                 <Label htmlFor="email" className="text-lg">
                   Email Address *
                 </Label>
@@ -178,6 +184,7 @@ export default function WaitlistForm() {
                   placeholder="business@email.com"
                   required
                   className="bg-zinc-800 border-zinc-700 h-12 text-lg"
+                  defaultValue={vendorState.data?.email || ""}
                 />
               </div>
               <div className="space-y-2">
@@ -191,6 +198,7 @@ export default function WaitlistForm() {
                   placeholder="Your Food Truck or Coffee Van Name"
                   required
                   className="bg-zinc-800 border-zinc-700 h-12 text-lg"
+                  defaultValue={vendorState.data?.businessName || ""}
                 />
               </div>
               <div className="space-y-2">
@@ -203,6 +211,7 @@ export default function WaitlistForm() {
                   type="text"
                   placeholder="Food Truck, Coffee Van, etc."
                   className="bg-zinc-800 border-zinc-700 h-12 text-lg"
+                  defaultValue={vendorState.data?.businessType || ""}
                 />
               </div>
 
@@ -219,6 +228,7 @@ export default function WaitlistForm() {
                     placeholder="Your suburb"
                     required
                     className="bg-zinc-800 border-zinc-700 h-12 text-lg"
+                    defaultValue={vendorState.data?.suburb || ""}
                   />
                 </div>
                 <div className="space-y-2">
@@ -232,6 +242,7 @@ export default function WaitlistForm() {
                     placeholder="Your state"
                     required
                     className="bg-zinc-800 border-zinc-700 h-12 text-lg"
+                    defaultValue={vendorState.data?.state || ""}
                   />
                 </div>
               </div>
@@ -247,23 +258,26 @@ export default function WaitlistForm() {
                   placeholder="Your postcode"
                   required
                   className="bg-zinc-800 border-zinc-700 h-12 text-lg"
+                  defaultValue={vendorState.data?.postcode || ""}
                 />
               </div>
 
-
-
               {vendorState.message && !vendorState.success && (
-                <div className="text-red-500 text-sm">{vendorState.message}</div>
+                <div className="text-red-500 text-sm">
+                  {vendorState.message}
+                </div>
               )}
 
-              <Button type="submit" className="w-full bg-cyan-500 hover:bg-cyan-600 h-12 text-lg font-bold">
+              <SubmitButton
+                className="w-full bg-cyan-500 hover:bg-cyan-600 h-12 text-lg font-bold"
+                pendingText="JOINING..."
+              >
                 JOIN AS A VENDOR
-              </Button>
+              </SubmitButton>
             </form>
           </div>
         </TabsContent>
       </Tabs>
     </div>
-  )
+  );
 }
-
