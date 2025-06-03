@@ -35,9 +35,13 @@ function SubmitButton({
   );
 }
 
-export default function WaitlistForm() {
-  const [activeTab, setActiveTab] = useState("customer");
-
+export default function WaitlistForm({
+  activeTab,
+  setActiveTab,
+}: {
+  activeTab: string;
+  setActiveTab: (tab: string) => void;
+}) {
   // Use React's useFormState hook to handle form submissions
   const [customerState, customerAction] = useFormState(
     submitCustomerEmail,
@@ -81,13 +85,14 @@ export default function WaitlistForm() {
         defaultValue="customer"
         className="w-full"
         onValueChange={setActiveTab}
+        value={activeTab}
       >
         <TabsList className="grid w-full grid-cols-2 mb-8">
           <TabsTrigger value="customer" className="text-lg">
-            Food Lovers
+            Customers
           </TabsTrigger>
           <TabsTrigger value="vendor" className="text-lg">
-            Van Owners
+            Vendors
           </TabsTrigger>
         </TabsList>
 
