@@ -44,45 +44,49 @@ export default function Home() {
   };
 
   return (
-    <main id="main-content" className="min-h-screen bg-black text-white">
+    <main id="main-content" className="bg-black text-white">
       {/* Hero Section */}
       <section
-        className="relative h-screen flex items-center justify-center overflow-hidden"
+        className="min-h-screen flex  flex-col justify-center items-center gap-10 p-4"
         aria-labelledby="hero-heading"
       >
-        <div className="absolute inset-0 z-0 opacity-20"></div>
-        <div className="container mx-auto px-4 z-10 text-center">
-          <h1
-            id="hero-heading"
-            className="text-5xl md:text-7xl lg:text-8xl font-black mb-4 tracking-tighter"
-          >
-            CONNECTING <span className="text-rose-500">MORE </span>CUSTOMERS
-            <br />
-            WITH <span className="text-rose-500">LOCAL MOBILE </span>COFFEE
-          </h1>
-          <div className="grid md:grid-cols-2 gap-8 max-w-5xl mx-auto mb-8">
-            <div className="bg-zinc-900 p-6 rounded-lg">
-              <h3 className="text-xl font-bold mb-2">FOR CUSTOMERS</h3>
-              <p className="mb-4">
-                Find delicious food trucks and coffee vans near you, instantly.
-              </p>
+        <h1
+          id="hero-heading"
+          className="text-5xl sm:text-5xl md:text-7xl lg:text-8xl font-black tracking-tighter text-center"
+        >
+          CONNECTING <span className="text-rose-500">MORE </span>CUSTOMERS
+          <br />
+          WITH <span className="text-rose-500">LOCAL MOBILE </span>COFFEE
+        </h1>
+        <div className="flex flex-col justify-between text-center">
+          <div className="flex flex-col sm:flex-row gap-10">
+            <div className="bg-slate-800 p-4 text-center rounded-lg">
+              <div className="">
+                <h3 className="text-xl font-bold mb-2">FOR CUSTOMERS</h3>
+                <p className="mb-4">
+                  Find delicious food trucks and coffee vans near you,
+                  instantly.
+                </p>
+              </div>
               <button
                 tabIndex={0}
-                className="bg-rose-500 hover:bg-rose-600 text-white font-bold py-3 px-6 rounded-full transition-all duration-300"
+                className="bg-rose-500 hover:bg-rose-600 text-white font-bold py-3 px-6 rounded-full transition-all duration-300 text-sm sm:text-base"
                 onClick={handleCustomerWaitlistClick}
                 aria-label="Join customer waitlist"
               >
                 JOIN WAITLIST
               </button>
             </div>
-            <div className="bg-zinc-900 p-6 rounded-lg">
-              <h3 className="text-xl font-bold mb-2">FOR VENDORS</h3>
-              <p className="mb-4">
-                Grow your mobile business with more visibility and customers.
-              </p>
+            <div className="bg-slate-800 p-4 text-center rounded-lg">
+              <div className="">
+                <h3 className="text-xl font-bold mb-2">FOR VENDORS</h3>
+                <p className="mb-4">
+                  Grow your mobile business with more visibility and customers.
+                </p>
+              </div>
               <button
                 tabIndex={0}
-                className="bg-cyan-500 hover:bg-cyan-600 text-white font-bold py-3 px-6 rounded-full transition-all duration-300"
+                className="bg-cyan-500 hover:bg-cyan-600 text-white font-bold py-3 px-6 rounded-full transition-all duration-300 text-sm sm:text-base"
                 onClick={handleVendorMoreInfoClick}
                 aria-label="Learn more about partnering with us"
               >
@@ -91,33 +95,31 @@ export default function Home() {
             </div>
           </div>
         </div>
-        <div className="absolute bottom-10 left-0 right-0 text-center">
-          <button
-            tabIndex={0}
-            onClick={() => {
-              trackButtonClick("scroll_down");
-              trackSectionView("problem");
-            }}
-            className="animate-bounce"
-            aria-label="Scroll down to learn more"
+        <button
+          tabIndex={0}
+          onClick={() => {
+            trackButtonClick("scroll_down");
+            trackSectionView("problem");
+          }}
+          className="animate-bounce"
+          aria-label="Scroll down to learn more"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="48"
+            height="48"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="2"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            className="text-white"
+            aria-hidden="true"
           >
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="48"
-              height="48"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="2"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              className="text-white"
-              aria-hidden="true"
-            >
-              <path d="M12 5v14M5 12l7 7 7-7" />
-            </svg>
-          </button>
-        </div>
+            <path d="M12 5v14M5 12l7 7 7-7" />
+          </svg>
+        </button>
       </section>
 
       {/* Problem/Solution Section */}
